@@ -2,6 +2,7 @@ package edu.farmingdale.threadsexample
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -24,6 +25,7 @@ fun FibonacciDemoNoBgThrd() {
     var textInput by remember { mutableStateOf("40") }
 
     Column {
+        Spacer(modifier = androidx.compose.ui.Modifier.weight(.1f))
         Row {
             TextField(
                 value = textInput,
