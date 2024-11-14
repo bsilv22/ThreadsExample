@@ -10,6 +10,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import edu.farmingdale.threadsexample.R
 import kotlinx.coroutines.delay
+import java.util.Locale
 
 const val CHANNEL_ID_TIMER = "channel_timer"
 const val NOTIFICATION_ID = 0
@@ -35,7 +36,7 @@ class TimerWorker(context: Context, parameters: WorkerParameters) :
 
         // Post notifications every second until no time remains
         while (remainingMillis > 0) {
-            postTimerNotification(timerText(remainingMillis))
+            postTimerNotification(formatTime(remainingMillis))
             delay(1000)
             remainingMillis -= 1000
         }
@@ -73,5 +74,12 @@ class TimerWorker(context: Context, parameters: WorkerParameters) :
         }
 
         Log.d("TimerWorker", text)
+    }
+
+    private fun formatTime(timeInMillis: Long): String {
+        val hours = timeInMillis / (1000 * 60 * 60)
+        val minutes = (timeInMillis % (1000 * 60 * 60)) / (1000 * 60)
+        val seconds = (timeInMillis % (1000 * 60)) / 1000
+        return String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds)
     }
 }
